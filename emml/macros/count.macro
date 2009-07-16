@@ -1,20 +1,22 @@
-<macros xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance" 
- 	 xsi:schemaLocation="http://www.jackbe.com/2008-03-01/EMMLSchema/ ../src/schemas/EMMLSpec.xsd" 
- 	 xmlns="http://www.jackbe.com/2008-03-01/EMMLSchema" name="count" >
+<macros xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.jackbe.com/2008-03-01/EMMLSchema/../src/schemas/EMMLSpec.xsd"
+	xmlns="http://www.jackbe.com/2008-03-01/EMMLSchema" name="count">
 	<macro name="NodeCounter">
-		<emml-meta name="author">mythri@jackbe.com</emml-meta>
-		<input name="xmlDoc" type="document" />
+                <emml-meta name="author">Mythri(mythri@jackbe.com)</emml-meta>
+    		<input name="xmlDoc" type="document" />
 		<input name="tag" type="string" />
 		<output name="count" type="number" />
-		<display message="from macro:" variable="xmlDoc"/>
-		<display message="from macro:" variable="tag"/>
 
-		<script type="text/javascript" inputvariables="tag,xmlDoc"
-			outputvariable="count">
+		<script type="text/javascript" inputvariables="xmlDoc,tag" outputvariable="count">
 		<![CDATA[
-			print(tag);
-            count = xmlDoc[tag].length();
-            print(count);
+			var obj=xmlDoc;
+			var path;
+			path= tag.split(".");
+			for(var i=0;i<path.length;i++)
+			{
+				obj=obj[path[i]];
+			}
+			count = obj.length();
 		]]>
 		</script>
 	</macro>
